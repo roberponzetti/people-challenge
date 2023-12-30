@@ -1,5 +1,5 @@
 import { peopleApi } from "../../../services/peopleApi"
-import { loadingPeople, setPeople } from "./peopleSlice"
+import { loadingPeople, setPeople, setUpdatedPeople } from "./peopleSlice"
 
 export const getPeople = () => {
   return async (dispatch) => {
@@ -8,15 +8,16 @@ export const getPeople = () => {
     const response = await peopleApi.get('people?limit=10');
 
     dispatch(setPeople({ people: response.data.results }));
+    dispatch(setUpdatedPeople({ updatedPeople: response.data.results }));
   }
 }
 
 export const deleteCharacter = (index) => {
   return async (dispatch, getState) => {
     const state = getState();
-    const updatedPeople = [...state.people.people];
+    const updatedPeople = [...state.people.updatedPeople];
     updatedPeople.splice(index, 1);
 
-    dispatch(setPeople({ people: updatedPeople }));
+    dispatch(setUpdatedPeople({ updatedPeople: updatedPeople }));
   }
 }

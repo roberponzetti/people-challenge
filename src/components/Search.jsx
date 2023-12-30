@@ -1,40 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { setPeople } from '../store/slices/people/peopleSlice';
+import { setUpdatedPeople } from '../store/slices/people/peopleSlice';
 import Badge from './Badge';
 import { setBadge, setSearchTerm } from '../store/slices/search/searchSlice';
 
 const Search = () => {
 
+  const [searchParam, setSearchParam] = useState('');
+  
   const dispatch = useDispatch();
 
-  const { people } = useSelector(state => state.people);
-  const { badge, searchTerm } = useSelector(state => state.search);
+  const { updatedPeople } = useSelector(state => state.people);
+  const { badge } = useSelector(state => state.search);
 
   const handleSearchSubmit = (event) => {
+
     event.preventDefault();
-    const filteredPeople = people.filter((character) => {
-      return character.name.toLowerCase().includes(searchTerm.toLowerCase())
+
+    const filteredPeople = updatedPeople.filter((character) => {
+      return character.name.toLowerCase().includes(searchParam.toLowerCase());
     });
     
-    if (filteredPeople.length > 0) {
-      dispatch(setBadge({ badge: true }));
-    } else {
-      dispatch(setBadge({ badge: false }));
-    };
-    
-    dispatch(setPeople({ people: filteredPeople }));
-    // dispatch(setSearchTerm({ searchTerm: '' }));
+    dispatch(setSearchTerm({ searchTerm: searchParam }));
+    dispatch(setBadge({ badge: true }));
+    dispatch(setUpdatedPeople({ updatedPeople: filteredPeople }));
+    setSearchParam('');
   }
 
   const handleSearchChange = (event) => {
-    setBadge(false);
-    dispatch(setSearchTerm({ searchTerm: event.target.value }));
+    setSearchParam(event.target.value);
   };
 
   return (
     <>
-      <form className={`${badge ? 'mb-2' : 'mb-10'} sticky top-0`} onSubmit={handleSearchSubmit} >   
+      <form className={`${badge ? 'mb-2 opacity-50' : 'mb-10'} sticky top-0`} onSubmit={handleSearchSubmit} >   
         <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
         <div className="relative">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -46,13 +45,14 @@ const Search = () => {
                 id="default-search" 
                 className="block w-full p-4 ps-10 text-md text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-dark-yellow-star-wars focus:border-dark-yellow-star-wars" 
                 placeholder="Nombre, apellido..." 
-                value={searchTerm}
+                value={searchParam}
                 onChange={handleSearchChange}
-                required />
-          <button type="submit" className="text-black absolute end-2.5 bottom-2.5 bg-yellow-star-wars hover:bg-dark-yellow-star-wars focus:ring-4 focus:outline-none focus:ring-dark- yellow-star-wars font-medium rounded-lg text-sm px-4 py-2">Buscar</button>
+                required
+                disabled={badge} />
+          <button type="submit" disabled={badge} className="text-black absolute end-2.5 bottom-2.5 bg-yellow-star-wars hover:bg-dark-yellow-star-wars focus:ring-4 focus:outline-none focus:ring-dark-yellow-star-wars font-medium rounded-lg text-sm px-4 py-2">Buscar</button>
         </div>
       </form>
-      {badge ? <Badge /> : null}
+      {badge && <Badge />}
     </>
   )
 }
