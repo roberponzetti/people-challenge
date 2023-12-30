@@ -1,12 +1,12 @@
 import './App.css'
 import PeopleList from './components/PeopleList'
-import Search from './components/Search'
+import SearchBar from './components/SearchBar'
 
 function App() {
 
   return (
     <>
-      <Search />
+      <SearchBar />
       <PeopleList />
     </>
   )

@@ -4,7 +4,7 @@ import { setUpdatedPeople } from '../store/slices/people/peopleSlice';
 import Badge from './Badge';
 import { setBadge, setSearchTerm } from '../store/slices/search/searchSlice';
 
-const Search = () => {
+const SearchBar = () => {
 
   const [searchParam, setSearchParam] = useState('');
   
@@ -57,4 +57,4 @@ const Search = () => {
   )
 }
 
-export default Search
+export default SearchBar
