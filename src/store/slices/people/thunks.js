@@ -10,3 +10,13 @@ export const getPeople = () => {
     dispatch(setPeople({ people: response.data.results }));
   }
 }
+
+export const deleteCharacter = (index) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const updatedPeople = [...state.people.people];
+    updatedPeople.splice(index, 1);
+
+    dispatch(setPeople({ people: updatedPeople }));
+  }
+}

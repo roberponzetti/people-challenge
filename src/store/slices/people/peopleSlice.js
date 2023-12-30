@@ -13,7 +13,7 @@ export const peopleSlice = createSlice({
     setPeople: (state, action) => {
       state.isLoading = false;
       state.people = action.payload.people;
-    }
+    },
   },
 })
 

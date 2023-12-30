@@ -1,11 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPeople } from '../store/slices/people/thunks';
+import { deleteCharacter, getPeople } from '../store/slices/people/thunks';
 
 const PeopleList = () => {
   
   const dispatch = useDispatch();
   const { isLoading, people } = useSelector(state => state.people);
+  const [localPeople, setLocalPeople] = useState(people);
+
+  const handleDelete = (index) => {
+    const updatedPeople = [...localPeople];
+    updatedPeople.splice(index, 1);
+    setLocalPeople(updatedPeople);
+
+    dispatch(deleteCharacter(index));
+  }
 
   useEffect(() => {
     dispatch(getPeople());
@@ -30,9 +39,9 @@ const PeopleList = () => {
                 <p className="font-normal text-gray-700 dark:text-gray-400">Height: {character.height}</p>
                 <p className="font-normal text-gray-700 dark:text-gray-400">Mass: {character.mass}</p>
             </div>
-            <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-black bg-yellow-star-wars rounded-lg hover:bg-dark-yellow-star-wars focus:ring-4 focus:outline-none focus:ring-dark-yellow-star-wars">
+            <button onClick={() => handleDelete(index)} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-black bg-yellow-star-wars rounded-lg hover:bg-dark-yellow-star-wars focus:ring-4 focus:outline-none focus:ring-dark-yellow-star-wars">
               Eliminar
-            </a>
+            </button>
           </div>
         ))
       )}
