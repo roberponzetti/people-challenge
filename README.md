@@ -8,6 +8,10 @@ I'm Robertino Ponzetti.
 - #### _npm i_
 - #### Run the app with _npm run dev_
 
+# Demos
+
+![](https://github.com/roberponzetti/people-challenge/people-challenge-animation.gif)
+
 # Technologies & Dependencies  
 
 - Vite
