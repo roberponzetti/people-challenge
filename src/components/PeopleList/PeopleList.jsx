@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteCharacter, getPeople } from '../store/slices/people/thunks';
-import AddCharacterModal from './AddCharacterModal';
+import { getPeople } from '../../store/slices/people/thunks';
+import AddCharacter from '../Character/AddCharacter';
+import Character from '../Character/Character';
 
 const PeopleList = () => {
   
   const dispatch = useDispatch();
   const { isLoading, updatedPeople } = useSelector(state => state.people);
-
-  const handleDelete = (index) => {
-    dispatch(deleteCharacter(index));
-  };
 
   useEffect(() => {
     dispatch(getPeople());
@@ -28,24 +25,8 @@ const PeopleList = () => {
         </div>
       ) : (
         <>
-          {updatedPeople.length > 0 ? (
-            updatedPeople.map((character, index) => (  
-              <div key={index} className="flex flex-col items-center pl-4 pr-4 bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-200 hover:cursor-pointer">
-                <div className="flex flex-col flex-grow items-start justify-between p-2 leading-normal">
-                  <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{character.name}</h5>
-                  <p className="font-normal text-gray-700 dark:text-gray-400">Gender: {character.gender}</p>
-                  <p className="font-normal text-gray-700 dark:text-gray-400">Height: {character.height}</p>
-                  <p className="font-normal text-gray-700 dark:text-gray-400">Mass: {character.mass}</p>
-                </div>
-                <button onClick={() => handleDelete(index)} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-black bg-yellow-star-wars rounded-lg hover:bg-dark-yellow-star-wars focus:ring-4 focus:outline-none focus:ring-dark-yellow-star-wars">
-                  Eliminar
-                </button>
-              </div>
-            ))
-          ) : (
-            <h1>No se encontraron resultados.</h1>
-          )}
-          <AddCharacterModal />
+          <Character updatedPeople={updatedPeople} />
+          <AddCharacter />
         </>
       )}
     </div>

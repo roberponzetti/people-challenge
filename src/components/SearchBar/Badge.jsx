@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { setBadge } from '../store/slices/search/searchSlice';
-import { setUpdatedPeople } from '../store/slices/people/peopleSlice';
+import { setBadge } from '../../store/slices/search/searchSlice';
+import { setUpdatedPeople } from '../../store/slices/people/peopleSlice';
 
 const Badge = () => {
 

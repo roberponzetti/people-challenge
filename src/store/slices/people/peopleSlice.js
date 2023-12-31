@@ -18,7 +18,7 @@ export const peopleSlice = createSlice({
     setUpdatedPeople: (state, action) => {
       state.isLoading = false;
       state.updatedPeople = action.payload.updatedPeople;
-    },
+    }
   },
 })
 

@@ -1,6 +1,6 @@
 import './App.css'
-import PeopleList from './components/PeopleList'
-import SearchBar from './components/SearchBar'
+import PeopleList from './components/PeopleList/PeopleList'
+import SearchBar from './components/SearchBar/SearchBar'
 
 function App() {
 

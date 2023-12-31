@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { setUpdatedPeople } from '../store/slices/people/peopleSlice';
+import { setUpdatedPeople } from '../../store/slices/people/peopleSlice';
 import Badge from './Badge';
-import { setBadge, setSearchTerm } from '../store/slices/search/searchSlice';
+import { setBadge, setSearchTerm } from '../../store/slices/search/searchSlice';
+import { filterPeople } from '../../utils/filterPeople';
 
 const SearchBar = () => {
 
@@ -17,13 +18,11 @@ const SearchBar = () => {
 
     event.preventDefault();
 
-    const filteredPeople = updatedPeople.filter((character) => {
-      return character.name.toLowerCase().includes(searchParam.toLowerCase());
-    });
+    const filteredPeople = filterPeople(updatedPeople, searchParam);
     
+    dispatch(setUpdatedPeople({ updatedPeople: filteredPeople }));
     dispatch(setSearchTerm({ searchTerm: searchParam }));
     dispatch(setBadge({ badge: true }));
-    dispatch(setUpdatedPeople({ updatedPeople: filteredPeople }));
     setSearchParam('');
   }
 
@@ -33,7 +32,7 @@ const SearchBar = () => {
 
   return (
     <>
-      <form className={`${badge ? 'mb-2 opacity-50' : 'mb-10'} sticky top-0`} onSubmit={handleSearchSubmit} >   
+      <form className={`${badge ? 'mb-2 opacity-50' : 'mb-10 sticky top-3'} shadow-form-shadow`} onSubmit={handleSearchSubmit} >   
         <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
         <div className="relative">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -53,7 +52,7 @@ const SearchBar = () => {
         </div>
       </form>
       {badge && <Badge />}
-    </>
+      </>
   )
 }
 

@@ -24,3 +24,24 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+.errorMessage{
+  color: red;
+}
+
+.errorBoundaryContainer{
+  background-color: #242424;
+  padding: 50px;
+  text-align: center;
+}
+
+.resetBoundaryButton{
+  background-color: red;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px 10px;
+  margin-top: 5px;
+}
