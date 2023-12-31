@@ -10,7 +10,9 @@ I'm Robertino Ponzetti.
 
 # Demos
 
-![](https://github.com/roberponzetti/people-challenge/people-challenge-animation.gif)
+![](https://github.com/roberponzetti/people-challenge/blob/main/people-challenge-animation.gif)
+
+![](https://github.com/roberponzetti/people-challenge/blob/main/people-challenge-responsive-animation.gif)
 
 # Technologies & Dependencies  
 
