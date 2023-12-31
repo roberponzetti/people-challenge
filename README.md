@@ -14,7 +14,7 @@ I'm Robertino Ponzetti.
 
 - React JS
   - axios
-  * react-router-dom
+  * react-hook-form
   + react-error-boundary
   
 - Redux Toolkit

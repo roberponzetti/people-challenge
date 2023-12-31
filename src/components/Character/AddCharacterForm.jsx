@@ -1,11 +1,13 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { addCharacter } from '../../store/slices/people/thunks'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const AddCharacterForm = ({ toggleModal }) => {
 
   const dispatch = useDispatch();
+
+  const { updatedPeople } = useSelector(state => state.people);
 
   const { register, formState: { errors }, handleSubmit, reset } = useForm()
 
@@ -14,6 +16,8 @@ const AddCharacterForm = ({ toggleModal }) => {
     reset();
     toggleModal();
   }
+
+  console.log(updatedPeople)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="p-4 md:p-5">
@@ -25,7 +29,8 @@ const AddCharacterForm = ({ toggleModal }) => {
                 id="name" 
                 {...register("name", { 
                   required: 'Campo requerido!', 
-                  maxLength: {value: 20, message: 'La longitud máxima es de 20 caracteres.'}
+                  maxLength: {value: 20, message: 'La longitud máxima es de 20 caracteres.'},
+                  validate: (value) => updatedPeople.some((person) => person.name === value) ? 'El nombre ya existe!' : true
                 })} 
                 aria-invalid={errors.name ? "true" : "false"} 
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-star-wars focus:border-dark-yellow-star-wars block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" 
